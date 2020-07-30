@@ -6,15 +6,13 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(
-        tableName = "NewsArticles"
+        tableName = NewsArticleModel.NewsArticles.tableName
 )
-data class ArticleEntity(
-        @PrimaryKey(autoGenerate = true)
-        val id: Int = 0,
-
+data class NewsArticleModel(
         @ColumnInfo(name = NewsArticles.Column.author)
         val author: String? = null,
 
+        @PrimaryKey
         @ColumnInfo(name = NewsArticles.Column.title)
         val title: String? = null,
 
@@ -31,7 +29,11 @@ data class ArticleEntity(
         val publishedAt: String? = null,
 
         @ColumnInfo(name = NewsArticles.Column.content)
-        val content: String? = null
+        val content: String? = null,
+
+        // add field of category to retrieve news from where clause
+        @ColumnInfo(name = NewsArticles.Column.category)
+        val category: String? = null
 
 ) {
 
@@ -47,6 +49,7 @@ data class ArticleEntity(
             const val urlToImage = "urlToImage"
             const val publishedAt = "publishedAt"
             const val content = "content"
+            const val category = "category"
         }
     }
 }

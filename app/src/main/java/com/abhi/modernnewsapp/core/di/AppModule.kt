@@ -16,11 +16,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
-class AppModule {
+class AppModule(private val app:Application) {
 
     @Provides
     @Singleton
-    fun providesContext(app: Application): Context = app.applicationContext
+    fun providesContext(): Context = app.applicationContext
 
     @Singleton
     @Provides
