@@ -7,8 +7,11 @@ import com.abhi.modernnewsapp.BuildConfig
 import com.abhi.modernnewsapp.news.data.network.NewsApiService
 import com.abhi.modernnewsapp.news.data.storage.NewsArticleDao
 import com.abhi.modernnewsapp.news.data.storage.NewsDatabase
+import com.facebook.stetho.okhttp3.StethoInterceptor
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -16,11 +19,14 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
-class AppModule(private val app:Application) {
+@InstallIn(ApplicationComponent::class)
+object AppModule {
+/*
 
     @Provides
     @Singleton
     fun providesContext(): Context = app.applicationContext
+*/
 
     @Singleton
     @Provides
@@ -30,11 +36,11 @@ class AppModule(private val app:Application) {
         }
         return OkHttpClient.Builder()
             .addInterceptor(logging)
-            //.addNetworkInterceptor(StethoInterceptor())
-            .addInterceptor { chain ->
+            .addNetworkInterceptor(StethoInterceptor())
+           /* .addInterceptor { chain ->
                 val request = chain.request().newBuilder().addHeader("X-Api-Key", BuildConfig.NEWS_API_KEY).build()
                 chain.proceed(request)
-            }
+            }*/
             .build()
     }
 
@@ -61,7 +67,5 @@ class AppModule(private val app:Application) {
     @Provides
     fun provideArticleDao(db: NewsDatabase) : NewsArticleDao = db.newsArticlesDao()
 
-    companion object {
-        private const val BASE_URL = "https://newsapi.org/v2/"
-    }
+    private const val BASE_URL = "https://newsapi.org/v2/"
 }

@@ -14,7 +14,7 @@ data class NewsArticleModel(
 
         @PrimaryKey
         @ColumnInfo(name = NewsArticles.Column.title)
-        val title: String? = null,
+        val title: String,
 
         @ColumnInfo(name = NewsArticles.Column.description)
         val description: String? = null,
