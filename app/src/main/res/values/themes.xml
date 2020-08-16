@@ -2,15 +2,40 @@
     <!-- Base application theme. -->
     <style name="Theme.ModernNewsApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryDark">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimary">@color/bg_search_bar</item>
+        <item name="colorPrimaryDark">@color/app_background</item>
+        <item name="colorOnPrimary">@color/light_grey</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/app_background</item>
         <!-- Customize your theme here. -->
+    </style>
+
+
+    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textColorPrimary">@color/grey_text</item>
+        <item name="colorAccent">@color/light_grey</item>
+        <item name="background">@color/bg_search_bar</item>
+    </style>
+
+    <style name="ToolbarPopupTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/white</item>>
+    </style>
+
+    <style name="NewsCustomTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorColor">@color/accent_color</item>
+        <item name="tabIndicatorHeight">2dp</item>
+        <item name="tabTextAppearance">@style/NewsCustomTabTextAppearance</item>
+        <item name="tabSelectedTextColor">@color/accent_color</item>
+    </style>
+
+    <style name="NewsCustomTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textColor">@color/accent_color</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textAllCaps">false</item>
     </style>
 </resources>
