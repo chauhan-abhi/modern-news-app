@@ -8,18 +8,26 @@
         android:layout_height="match_parent"
         tools:context=".news.ui.NewsListFragment">
 
-        <!-- TODO: Update blank fragment layout -->
-        <Button
-            android:id="@+id/hitServiceButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hit Service"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvNewsListing"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            tools:listitem="@layout/full_width_news_item_view"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
+        <ProgressBar
+            android:id="@+id/rvProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

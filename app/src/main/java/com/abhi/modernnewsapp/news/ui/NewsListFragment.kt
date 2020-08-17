@@ -6,11 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.abhi.modernnewsapp.R
 import com.abhi.modernnewsapp.core.extensions.observeNotNull
 import com.abhi.modernnewsapp.core.uistate.ViewState
+import com.abhi.modernnewsapp.news.ui.adapter.NewsListingAdapter
 import com.abhi.modernnewsapp.news.viewmodel.NewsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_news_list.*
@@ -20,6 +21,7 @@ class NewsListFragment : Fragment() {
 
     private val newsViewModel: NewsViewModel by viewModels()
     private var cateogory: String = ""
+
     companion object {
         fun newInstance(category: String): NewsListFragment {
             val fragment = NewsListFragment()
@@ -34,21 +36,29 @@ class NewsListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_news_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        cateogory = arguments?.getString("category") ?: ""
-        hitServiceButton.setOnClickListener {
-            newsViewModel.getNewsForCategory(cateogory).observeNotNull(this) { state ->
-                when(state) {
-                    is ViewState.Success -> Log.d("RES: ", state.data.toString())
-                    is ViewState.Loading -> Log.d("RES: ", "Loading..")
-                    is ViewState.Error   -> Log.d("RES: ", "Error...")
+        initVariables()
+        val newsListAdapter = NewsListingAdapter(context)
+        rvNewsListing.adapter = newsListAdapter
+        rvNewsListing.layoutManager = LinearLayoutManager(context)
+        newsViewModel.getNewsForCategory(cateogory).observeNotNull(this) { state ->
+            when (state) {
+                is ViewState.Success -> {
+                    rvProgress.visibility = View.GONE
+                    newsListAdapter.submitList(state.data)
                 }
+                is ViewState.Loading -> rvProgress.visibility = View.VISIBLE
+                is ViewState.Error -> Log.d("RES: ", "Error...")
             }
         }
+
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    private fun initVariables() {
+        cateogory = arguments?.getString("category") ?: ""
     }
 }

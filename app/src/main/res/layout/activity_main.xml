@@ -18,23 +18,24 @@
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="132dp"
+                android:layout_height="104dp"
                 app:layout_scrollFlags="scroll|enterAlways|exitUntilCollapsed"
                 app:titleEnabled="false">
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/mToolbar"
                     android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
+                    android:layout_height="48dp"
                     app:layout_collapseMode="parallax"
-                    android:layout_marginLeft="16dp"
+                    app:contentInsetStartWithNavigation="0dp"
+                    android:showAsAction="collapseActionView|ifRoom"
                     app:popupTheme="@style/ToolbarPopupTheme"
                     app:titleTextColor="@color/grey_text" />
 
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tabLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
+                    android:layout_height="56dp"
                     app:layout_collapseMode="pin"
                     android:layout_gravity="bottom"
                     style="@style/NewsCustomTabLayout"
@@ -49,7 +50,7 @@
         </com.google.android.material.appbar.AppBarLayout>
 
 
-        <androidx.viewpager2.widget.ViewPager2
+        <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
