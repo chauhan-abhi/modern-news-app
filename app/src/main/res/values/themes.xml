@@ -2,15 +2,15 @@
     <!-- Base application theme. -->
     <style name="Theme.ModernNewsApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/bg_search_bar</item>
-        <item name="colorPrimaryDark">@color/app_background</item>
+        <item name="colorPrimary">@color/app_background</item>
+        <item name="colorPrimaryDark">@color/primaryDark</item>
         <item name="colorOnPrimary">@color/light_grey</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">@color/app_background</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/primaryDark</item>
         <!-- Customize your theme here. -->
     </style>
 
@@ -18,7 +18,7 @@
     <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:textColorPrimary">@color/grey_text</item>
         <item name="colorAccent">@color/light_grey</item>
-        <item name="background">@color/bg_search_bar</item>
+        <item name="background">@color/app_background</item>
     </style>
 
     <style name="ToolbarPopupTheme" parent="Theme.AppCompat.DayNight.NoActionBar">

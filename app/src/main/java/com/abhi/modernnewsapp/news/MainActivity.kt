@@ -31,20 +31,27 @@ class MainActivity : BaseActivity(), SearchView.OnQueryTextListener {
 
     lateinit var pagerAdapter: NewsListingPagerAdapter
 
-
+    private val categoryTitles = arrayListOf(
+        "Latest News",
+        "General",
+        "Entertainment",
+        "Sports",
+        "Business",
+        "Technology",
+        "Science",
+        "Health")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        pagerAdapter = NewsListingPagerAdapter(supportFragmentManager)
-        tabLayout.setupWithViewPager(viewpager)
+        pagerAdapter = NewsListingPagerAdapter(this)
         viewpager.adapter = pagerAdapter
-        viewpager.offscreenPageLimit = 2
         //setSupportActionBar(mToolbar)
-       /* TabLayoutMediator(tabLayout, viewpager) { tab, position ->
+        TabLayoutMediator(tabLayout, viewpager) { tab, position ->
             tab.text = categoryTitles[position]
-        }.attach()*/
+        }.attach()
+        viewpager.offscreenPageLimit = 2
         mToolbar.title = "Hi, Abhi!"
         setSupportActionBar(mToolbar)
         //tabLayout.getTabAt()

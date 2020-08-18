@@ -8,13 +8,14 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="primary_bg">#050608</color>
+    <color name="primaryDark">#050608</color>
     <color name="primary_text">#3C4147</color>
     <color name="accent_color">#ffab91</color>
+    <color name="app_background">#3C4147</color>
 
 
     <color name="bg_search_bar">#423C3C</color>
-    <color name="app_background">#0D0E0E</color>
+    <color name="app_background1">#0D0E0E</color>
     <color name="grey_text">#B7BECC</color>
     <color name="light_grey">#DBE0E9</color>
 </resources>

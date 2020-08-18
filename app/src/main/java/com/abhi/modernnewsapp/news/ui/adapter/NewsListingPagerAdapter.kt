@@ -1,12 +1,16 @@
 package com.abhi.modernnewsapp.news.ui.adapter
 
-import androidx.fragment.app.*
+import android.view.LayoutInflater
+import android.view.View
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.abhi.modernnewsapp.R
 import com.abhi.modernnewsapp.news.ui.NewsListFragment
 
-class NewsListingPagerAdapter(fragment: FragmentManager): FragmentStatePagerAdapter(fragment) {
+class NewsListingPagerAdapter(val fragment: FragmentActivity): FragmentStateAdapter(fragment) {
 
-    private val categories = arrayListOf(
+    val categories = arrayListOf(
         "",
         "General",
         "Entertainment",
@@ -16,25 +20,16 @@ class NewsListingPagerAdapter(fragment: FragmentManager): FragmentStatePagerAdap
         "Science",
         "Health")
 
-    private val categoryTitles = arrayListOf(
-        "Latest News",
-        "General",
-        "Entertainment",
-        "Sports",
-        "Business",
-        "Technology",
-        "Science",
-        "Health")
-    override fun getItem(position: Int): Fragment {
-        return NewsListFragment.newInstance(categories[position])
-    }
-
-    override fun getPageTitle(position: Int): CharSequence? {
-        return categoryTitles[position]
-    }
-
-    override fun getCount(): Int {
+    override fun getItemCount(): Int {
         return 8
     }
 
+    override fun createFragment(position: Int): Fragment {
+        return NewsListFragment.newInstance(categories[position])
+    }
+
+    /*public fun getTabView(position: Int): View {
+        val view = LayoutInflater.from(fragment).inflate(R.layout.custom_tab, null)
+
+    }*/
 }

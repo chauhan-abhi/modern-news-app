@@ -9,6 +9,10 @@ import com.abhi.modernnewsapp.R
 import com.abhi.modernnewsapp.databinding.FullWidthNewsItemViewBinding
 import com.abhi.modernnewsapp.databinding.HalfWidthNewsItemLayoutBinding
 import com.abhi.modernnewsapp.news.data.storage.NewsArticleModel
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 
 class NewsListingAdapter(
     private val context: Context?
@@ -26,9 +30,10 @@ class NewsListingAdapter(
                 )
                 FullWidthViewHolder(binding)
             }
-            else ->  {
+            else -> {
                 val binding = DataBindingUtil.inflate<HalfWidthNewsItemLayoutBinding>(
-                    layoutInflater, viewType, parent, false)
+                    layoutInflater, viewType, parent, false
+                )
                 HalfWidthViewHolder(binding)
             }
         }
@@ -37,14 +42,14 @@ class NewsListingAdapter(
     override fun getItemCount() = mNewsList.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when(holder) {
+        when (holder) {
             is FullWidthViewHolder -> holder.bindData(holder, position)
             is HalfWidthViewHolder -> holder.bindData(holder, position)
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if(position == 0) R.layout.full_width_news_item_view
+        return if (position == 0) R.layout.full_width_news_item_view
         else R.layout.half_width_news_item_layout
     }
 
@@ -59,7 +64,16 @@ class NewsListingAdapter(
             holder: FullWidthViewHolder,
             position: Int
         ) {
-           binding.titleTV.text = mNewsList[position].title ?: "Default Title"
+            val model = mNewsList[position]
+            var requestOptions = RequestOptions()
+            requestOptions = requestOptions.transform(CenterCrop(), RoundedCorners(16))
+            context?.let {
+                Glide.with(it)
+                    .load(model.urlToImage)
+                    .apply(requestOptions)
+                    .into(binding.thumbnailImage)
+            }
+            binding.titleTV.text = model.title ?: "Default Title"
         }
 
     }
@@ -70,7 +84,16 @@ class NewsListingAdapter(
             holder: HalfWidthViewHolder,
             position: Int
         ) {
-            binding.titletextview.text = mNewsList[position].title ?: "Default Title"
+            val model = mNewsList[position]
+            var requestOptions = RequestOptions()
+            requestOptions = requestOptions.transform(CenterCrop(), RoundedCorners(16))
+            context?.let {
+                Glide.with(it)
+                    .load(model.urlToImage)
+                    .apply(requestOptions)
+                    .into(binding.thumbnailImage)
+            }
+            binding.titletextview.text = model.title ?: "Default Title"
         }
     }
 }

@@ -5,14 +5,13 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bg_search_bar"
-        android:fitsSystemWindows="true">
+        android:background="@color/app_background"
+        >
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/ablNewsListing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fitsSystemWindows="true"
             android:theme="@style/ToolbarTheme">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -42,7 +41,7 @@
                     app:tabTextColor="@color/grey_text"
                     app:tabSelectedTextColor="@color/accent_color"
                     app:tabIndicator="@color/accent_color"
-                    android:background="@color/bg_search_bar"
+                    android:background="@color/app_background"
                     app:tabMode="scrollable" />
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -50,7 +49,7 @@
         </com.google.android.material.appbar.AppBarLayout>
 
 
-        <androidx.viewpager.widget.ViewPager
+        <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
