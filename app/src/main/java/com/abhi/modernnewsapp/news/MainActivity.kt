@@ -1,31 +1,14 @@
 package com.abhi.modernnewsapp.news
 
-import android.app.SearchManager
-import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
-import androidx.lifecycle.ViewModelProvider
-import androidx.viewpager2.widget.ViewPager2
 import com.abhi.modernnewsapp.R
 import com.abhi.modernnewsapp.core.base.BaseActivity
-import com.abhi.modernnewsapp.core.di.Injector
-import com.abhi.modernnewsapp.core.extensions.observeNotNull
-import com.abhi.modernnewsapp.core.uistate.ViewState
 import com.abhi.modernnewsapp.news.ui.adapter.NewsListingPagerAdapter
-import com.abhi.modernnewsapp.news.viewmodel.NewsViewModel
-import com.abhi.modernnewsapp.news.viewmodel.NewsViewModelFactory
 import com.google.android.material.tabs.TabLayoutMediator
-import dagger.hilt.EntryPoint
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.app_bar_main.*
-import timber.log.Timber
-import javax.inject.Inject
 
 class MainActivity : BaseActivity(), SearchView.OnQueryTextListener {
 
@@ -39,7 +22,8 @@ class MainActivity : BaseActivity(), SearchView.OnQueryTextListener {
         "Business",
         "Technology",
         "Science",
-        "Health")
+        "Health"
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,5 +68,13 @@ class MainActivity : BaseActivity(), SearchView.OnQueryTextListener {
 
     override fun onQueryTextChange(newText: String?): Boolean {
         TODO("Not yet implemented")
+    }
+
+    override fun onBackPressed() {
+        if (supportFragmentManager.fragments.size == 1) {
+            finish()
+        } else {
+            super.onBackPressed()
+        }
     }
 }

@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.abhi.modernnewsapp.R
+import com.abhi.modernnewsapp.core.extensions.loadImageUrl
 import com.abhi.modernnewsapp.databinding.FullWidthNewsItemViewBinding
 import com.abhi.modernnewsapp.databinding.HalfWidthNewsItemLayoutBinding
 import com.abhi.modernnewsapp.news.data.storage.NewsArticleModel
@@ -15,7 +16,8 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 
 class NewsListingAdapter(
-    private val context: Context?
+    private val context: Context?,
+    val itemListener: (Int) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var mNewsList: List<NewsArticleModel> = ArrayList()
@@ -43,8 +45,8 @@ class NewsListingAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is FullWidthViewHolder -> holder.bindData(holder, position)
-            is HalfWidthViewHolder -> holder.bindData(holder, position)
+            is FullWidthViewHolder -> holder.bindData(position)
+            is HalfWidthViewHolder -> holder.bindData(position)
         }
     }
 
@@ -58,41 +60,44 @@ class NewsListingAdapter(
         notifyDataSetChanged()
     }
 
-    inner class FullWidthViewHolder(val binding: FullWidthNewsItemViewBinding) :
+    inner class FullWidthViewHolder(private val binding: FullWidthNewsItemViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.parentNewsLayout.setOnClickListener {
+                itemListener(adapterPosition)
+            }
+        }
+
+
         fun bindData(
-            holder: FullWidthViewHolder,
             position: Int
         ) {
             val model = mNewsList[position]
             var requestOptions = RequestOptions()
             requestOptions = requestOptions.transform(CenterCrop(), RoundedCorners(16))
-            context?.let {
-                Glide.with(it)
-                    .load(model.urlToImage)
-                    .apply(requestOptions)
-                    .into(binding.thumbnailImage)
-            }
+            binding.thumbnailImage.loadImageUrl(model.urlToImage, requestOptions)
             binding.titleTV.text = model.title ?: "Default Title"
         }
 
     }
 
-    inner class HalfWidthViewHolder(val binding: HalfWidthNewsItemLayoutBinding) :
+    inner class HalfWidthViewHolder(private val binding: HalfWidthNewsItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.parentNewsLayout.setOnClickListener {
+                itemListener(adapterPosition)
+            }
+        }
+
         fun bindData(
-            holder: HalfWidthViewHolder,
             position: Int
         ) {
             val model = mNewsList[position]
             var requestOptions = RequestOptions()
             requestOptions = requestOptions.transform(CenterCrop(), RoundedCorners(16))
-            context?.let {
-                Glide.with(it)
-                    .load(model.urlToImage)
-                    .apply(requestOptions)
-                    .into(binding.thumbnailImage)
-            }
+            binding.thumbnailImage.loadImageUrl(model.urlToImage, requestOptions)
             binding.titletextview.text = model.title ?: "Default Title"
         }
     }

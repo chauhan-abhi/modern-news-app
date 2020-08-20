@@ -11,16 +11,20 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.abhi.modernnewsapp.R
+import com.abhi.modernnewsapp.core.extensions.inTransaction
 import com.abhi.modernnewsapp.core.extensions.observeNotNull
 import com.abhi.modernnewsapp.core.uistate.ViewState
 import com.abhi.modernnewsapp.news.ui.adapter.NewsListingAdapter
 import com.abhi.modernnewsapp.news.viewmodel.NewsViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_news_detail.*
 import kotlinx.android.synthetic.main.fragment_news_list.*
+import timber.log.Timber
 
 @AndroidEntryPoint
 class NewsListFragment : Fragment() {
 
+    // viewmodel store owner is Fragment
     private val newsViewModel: NewsViewModel by viewModels()
     private var cateogory: String = ""
 
@@ -38,12 +42,15 @@ class NewsListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        initVariables()
         return inflater.inflate(R.layout.fragment_news_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        initVariables()
-        val newsListAdapter = NewsListingAdapter(context)
+        //mToolbar.title = cateogory
+        val newsListAdapter = NewsListingAdapter(context) { position ->
+            openNewsDetail(position)
+        }
         rvNewsListing.apply {
             adapter = newsListAdapter
             layoutManager = LinearLayoutManager(context)
@@ -55,7 +62,8 @@ class NewsListFragment : Fragment() {
             }
             addItemDecoration(divider)
         }
-        newsViewModel.getNewsForCategory(cateogory).observeNotNull(this) { state ->
+        newsViewModel.getNewsForCategory(cateogory)
+        newsViewModel.getNewsLiveData().observeNotNull(this) { state ->
             when (state) {
                 is ViewState.Success -> {
                     rvProgress.visibility = View.GONE
@@ -67,6 +75,19 @@ class NewsListFragment : Fragment() {
         }
 
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    private fun openNewsDetail(position: Int) {
+        Timber.e("Item clicked $position + $cateogory ==> ")
+        Timber.e(((newsViewModel.getNewsLiveData().value as ViewState.Success).data[position]).title)
+        val bundle = Bundle().apply {
+            putSerializable("detail", (newsViewModel.getNewsLiveData().value as ViewState.Success).data[position])
+        }
+        val newsDetailFragment = NewsDetailFragment.getInstance(bundle)
+        activity?.supportFragmentManager?.inTransaction {
+            addToBackStack(this@NewsListFragment.javaClass.name)
+            add(R.id.content_frame, newsDetailFragment)
+        }
     }
 
     private fun initVariables() {

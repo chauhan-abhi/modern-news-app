@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 @Entity(
         tableName = NewsArticleModel.NewsArticles.tableName
@@ -35,7 +36,8 @@ data class NewsArticleModel(
         @ColumnInfo(name = NewsArticles.Column.category)
         val category: String? = null
 
-) {
+
+) : Serializable {
 
     object NewsArticles {
         const val tableName = "news_article"
