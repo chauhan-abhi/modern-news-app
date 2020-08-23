@@ -15,6 +15,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.withContext
 import retrofit2.Response
 import java.lang.Exception
 import javax.inject.Inject
@@ -41,6 +42,12 @@ class NewsRepository @Inject constructor(
                     "", "in", BuildConfig.NEWS_API_KEY)
         } catch (e: Exception) {
             httpError(404)
+        }
+    }
+
+    override suspend fun bookMarkArticle(articleModel: NewsArticleModel) {
+        withContext(Dispatchers.IO) {
+            newsArticleDao.updateArticle(articleModel)
         }
     }
 }

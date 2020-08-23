@@ -14,6 +14,7 @@ import com.abhi.modernnewsapp.R
 import com.abhi.modernnewsapp.core.extensions.inTransaction
 import com.abhi.modernnewsapp.core.extensions.observeNotNull
 import com.abhi.modernnewsapp.core.uistate.ViewState
+import com.abhi.modernnewsapp.news.constants.NewsConstants
 import com.abhi.modernnewsapp.news.ui.adapter.NewsListingAdapter
 import com.abhi.modernnewsapp.news.viewmodel.NewsViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -48,8 +49,8 @@ class NewsListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         //mToolbar.title = cateogory
-        val newsListAdapter = NewsListingAdapter(context) { position ->
-            openNewsDetail(position)
+        val newsListAdapter = NewsListingAdapter(context) { position, action ->
+            handleAction(position, action)
         }
         rvNewsListing.apply {
             adapter = newsListAdapter
@@ -75,6 +76,21 @@ class NewsListFragment : Fragment() {
         }
 
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    private fun handleAction(position: Int, action: Int) {
+        when(action) {
+            NewsConstants.OPEN_NEWS_DETAIL -> openNewsDetail(position)
+            NewsConstants.BOOKMARK_NEWS_ITEM -> bookmarkArticle(position)
+        }
+    }
+
+    private fun bookmarkArticle(position: Int) {
+        ((newsViewModel.getNewsLiveData()
+            .value as ViewState.Success).data[position]).let {
+            it.isBookmarked = !it.isBookmarked
+            newsViewModel.bookMarkArticle(it)
+        }
     }
 
     private fun openNewsDetail(position: Int) {

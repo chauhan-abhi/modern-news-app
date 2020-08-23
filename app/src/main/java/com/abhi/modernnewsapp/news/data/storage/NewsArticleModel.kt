@@ -34,8 +34,10 @@ data class NewsArticleModel(
 
         // add field of category to retrieve news from where clause
         @ColumnInfo(name = NewsArticles.Column.category)
-        val category: String? = null
+        val category: String? = null,
 
+        @ColumnInfo(name = NewsArticles.Column.isBookmarked)
+        var isBookmarked: Boolean
 
 ) : Serializable {
 
@@ -52,6 +54,7 @@ data class NewsArticleModel(
             const val publishedAt = "publishedAt"
             const val content = "content"
             const val category = "category"
+            const val isBookmarked = "bookmarkStatus"
         }
     }
 }
