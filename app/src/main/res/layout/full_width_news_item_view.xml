@@ -37,7 +37,7 @@
             app:layout_constraintTop_toBottomOf="@+id/thumbnailImage" />
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/bookmarkImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -48,13 +48,13 @@
             app:srcCompat="@drawable/ic_baseline_bookmark_border_24" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/viewMoreImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="@+id/imageView"
+            app:layout_constraintBottom_toBottomOf="@+id/bookmarkImageView"
+            app:layout_constraintStart_toEndOf="@+id/bookmarkImageView"
+            app:layout_constraintTop_toTopOf="@+id/bookmarkImageView"
             app:srcCompat="@drawable/ic_baseline_open_in_browser_24" />
 
         <TextView

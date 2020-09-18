@@ -27,7 +27,8 @@ interface NewsMapper : Mapper<NewsArticleModel, ArticleModel> {
                 urlToImage = urlToImage,
                 publishedAt = publishedAt,
                 content = content,
-                category = category
+                category = category,
+                isBookmarked = false
         )
     }
 }

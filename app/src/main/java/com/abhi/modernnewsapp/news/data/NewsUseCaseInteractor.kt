@@ -11,5 +11,7 @@ interface NewsUseCaseInteractor {
 
     fun getNewsArticlesByCategory(category: String) : Flow<ViewState<List<NewsArticleModel>>>
 
+    suspend fun bookMarkArticle(articleModel: NewsArticleModel)
+
     suspend fun getTopHeadLinesForCategory(category: String): Response<NewsResponse>
 }

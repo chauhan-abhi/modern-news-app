@@ -47,6 +47,7 @@ class NewsDetailFragment: Fragment() {
         var requestOptions = RequestOptions()
         requestOptions = requestOptions.transform(CenterCrop())
         newsArticleModel.run {
+            published_time_text_view.text = publishedAt
             news_image_view.loadImageUrl(urlToImage, requestOptions)
             news_title_tv.text = title
             news_description_tv.text = description
