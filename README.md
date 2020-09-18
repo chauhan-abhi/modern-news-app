@@ -1,7 +1,8 @@
-# \[ 🚧 Work in progress 👷‍♀️⛏👷🔧️👷🔧 🚧 \] Modern News App
+# \[ 🚧 Work in progress 👷‍♀️⛏👷🔧️👷🔧 🚧 \] News App(2.0)
 
 Modern News App is a simple news app 🗞️ which uses [NewsAPI](https://newsapi.org/) to fetch top news headlines for different categories from the API.
 The app is a guide to build Modern Android applications for all Android Developers.
+This repository includes improvements over the [News App(1.0)](https://github.com/chauhan-abhi/News-App-Assignement) repository.
 
 The codebase focuses 👓 on following key things:
 - Code structuring, style and comments
