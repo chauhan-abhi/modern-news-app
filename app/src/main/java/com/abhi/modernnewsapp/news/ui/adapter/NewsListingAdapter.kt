@@ -54,7 +54,7 @@ class NewsListingAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (position%5 == 0) R.layout.full_width_news_item_view
+        return if (position % 5 == 0) R.layout.full_width_news_item_view
         else R.layout.half_width_news_item_layout
     }
 
@@ -69,7 +69,7 @@ class NewsListingAdapter(
         init {
 
             binding.bookmarkImageView.setOnClickListener {
-               itemListener(adapterPosition, NewsConstants.BOOKMARK_NEWS_ITEM)
+                itemListener(adapterPosition, NewsConstants.BOOKMARK_NEWS_ITEM)
             }
             binding.parentNewsLayout.setOnClickListener {
                 itemListener(adapterPosition, NewsConstants.OPEN_NEWS_DETAIL)
@@ -85,21 +85,23 @@ class NewsListingAdapter(
             requestOptions = requestOptions.transform(CenterCrop(), RoundedCorners(16))
             binding.thumbnailImage.loadImageUrl(model.urlToImage, requestOptions)
             binding.titleTV.text = model.title ?: "Default Title"
-            if(model.isBookmarked) {
-               /* binding.bookmarkImageView.setColorFilter(
-                    ContextCompat.getColor(context!!, R.color.white),
-                    android.graphics.PorterDuff.Mode.SRC_IN
-                )*/
-                binding.bookmarkImageView.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.ic_baseline_bookmark_24))
-                /*DrawableCompat.setTint(binding.bookmarkImageView.drawable,
-                    ContextCompat.getColor(context!!, R.color.light_grey))*/
+            if (model.isBookmarked) {
+                binding.bookmarkImageView.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        context!!,
+                        R.drawable.ic_baseline_bookmark_24
+                    )
+                )
 
-            }else {
-                /*DrawableCompat.setTint(binding.bookmarkImageView.drawable,
-                    ContextCompat.getColor(context!!, R.color.grey_text))*/
-                binding.bookmarkImageView.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.ic_baseline_bookmark_border_24))
+            } else {
 
-                //binding.bookmarkImageView.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.ic_baseline_bookmark_border_24))
+                binding.bookmarkImageView.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        context!!,
+                        R.drawable.ic_baseline_bookmark_border_24
+                    )
+                )
+
             }
 
         }
@@ -127,10 +129,20 @@ class NewsListingAdapter(
             requestOptions = requestOptions.transform(CenterCrop(), RoundedCorners(16))
             binding.thumbnailImage.loadImageUrl(model.urlToImage, requestOptions)
             binding.titletextview.text = model.title ?: "Default Title"
-            if(model.isBookmarked) {
-                binding.bookmarkImageView.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.ic_baseline_bookmark_24))
+            if (model.isBookmarked) {
+                binding.bookmarkImageView.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        context!!,
+                        R.drawable.ic_baseline_bookmark_24
+                    )
+                )
             } else {
-                binding.bookmarkImageView.setImageDrawable(ContextCompat.getDrawable(context!!, R.drawable.ic_baseline_bookmark_border_24))
+                binding.bookmarkImageView.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        context!!,
+                        R.drawable.ic_baseline_bookmark_border_24
+                    )
+                )
             }
         }
     }

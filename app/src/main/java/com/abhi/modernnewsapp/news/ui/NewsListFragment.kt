@@ -11,8 +11,10 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.abhi.modernnewsapp.R
+import com.abhi.modernnewsapp.core.extensions.gone
 import com.abhi.modernnewsapp.core.extensions.inTransaction
 import com.abhi.modernnewsapp.core.extensions.observeNotNull
+import com.abhi.modernnewsapp.core.extensions.visible
 import com.abhi.modernnewsapp.core.uistate.ViewState
 import com.abhi.modernnewsapp.news.constants.NewsConstants
 import com.abhi.modernnewsapp.news.ui.adapter.NewsListingAdapter
@@ -67,10 +69,10 @@ class NewsListFragment : Fragment() {
         newsViewModel.getNewsLiveData().observeNotNull(this) { state ->
             when (state) {
                 is ViewState.Success -> {
-                    rvProgress.visibility = View.GONE
+                    rvProgress.gone()
                     newsListAdapter.submitList(state.data)
                 }
-                is ViewState.Loading -> rvProgress.visibility = View.VISIBLE
+                is ViewState.Loading -> rvProgress.visible()
                 is ViewState.Error -> Log.d("RES: ", "Error...")
             }
         }
