@@ -1,5 +1,6 @@
 package com.abhi.modernnewsapp.core.extensions
 
+import android.view.View
 import android.widget.ImageView
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -21,4 +22,12 @@ fun ImageView.loadImageUrl(url: String?, requestOptions: RequestOptions) {
         .placeholder(R.drawable.image_placeholder)
         .apply(requestOptions)
         .into(this)
+}
+
+fun View.visible() {
+    visibility = View.VISIBLE
+}
+
+fun View.gone() {
+    visibility = View.GONE
 }
