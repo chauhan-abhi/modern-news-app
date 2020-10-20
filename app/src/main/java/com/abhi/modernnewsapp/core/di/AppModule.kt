@@ -3,7 +3,6 @@ package com.abhi.modernnewsapp.core.di
 import android.app.Application
 import android.content.Context
 import androidx.room.Room
-import com.abhi.modernnewsapp.BuildConfig
 import com.abhi.modernnewsapp.news.data.network.NewsApiService
 import com.abhi.modernnewsapp.news.data.storage.NewsArticleDao
 import com.abhi.modernnewsapp.news.data.storage.NewsDatabase
@@ -32,10 +31,10 @@ object AppModule {
         return OkHttpClient.Builder()
             .addInterceptor(logging)
             .addNetworkInterceptor(StethoInterceptor())
-           /* .addInterceptor { chain ->
-                val request = chain.request().newBuilder().addHeader("X-Api-Key", BuildConfig.NEWS_API_KEY).build()
-                chain.proceed(request)
-            }*/
+            /* .addInterceptor { chain ->
+                 val request = chain.request().newBuilder().addHeader("X-Api-Key", BuildConfig.NEWS_API_KEY).build()
+                 chain.proceed(request)
+             }*/
             .build()
     }
 
@@ -51,16 +50,16 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideArticleDb(app:Application): NewsDatabase {
+    fun provideArticleDb(app: Application): NewsDatabase {
         return Room
-                .databaseBuilder(app, NewsDatabase::class.java, "news.db")
-                .fallbackToDestructiveMigration()
-                .build()
+            .databaseBuilder(app, NewsDatabase::class.java, "news.db")
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
     @Singleton
     @Provides
-    fun provideArticleDao(db: NewsDatabase) : NewsArticleDao = db.newsArticlesDao()
+    fun provideArticleDao(db: NewsDatabase): NewsArticleDao = db.newsArticlesDao()
 
     private const val BASE_URL = "https://newsapi.org/v2/"
 }

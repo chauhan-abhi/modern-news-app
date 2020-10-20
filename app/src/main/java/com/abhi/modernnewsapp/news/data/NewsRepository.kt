@@ -1,6 +1,7 @@
 package com.abhi.modernnewsapp.news.data
 
 import com.abhi.modernnewsapp.BuildConfig
+import com.abhi.modernnewsapp.core.di.qualifier.CoroutineBackgroundDispatcher
 import com.abhi.modernnewsapp.core.extensions.httpError
 import com.abhi.modernnewsapp.core.uistate.ViewState
 import com.abhi.modernnewsapp.news.data.network.ArticleModel
@@ -13,6 +14,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.withContext
@@ -22,7 +24,8 @@ import javax.inject.Inject
 
 class NewsRepository @Inject constructor(
         private val newsArticleDao: NewsArticleDao,
-        private val newsApiService: NewsApiService
+        private val newsApiService: NewsApiService,
+        @CoroutineBackgroundDispatcher val ioDispatcher: dagger.Lazy<CoroutineDispatcher>
 )  : NewsUseCaseInteractor, NewsMapper {
     override fun getNewsArticlesByCategory(category: String) : Flow<ViewState<List<NewsArticleModel>>> = flow {
 
@@ -34,7 +37,7 @@ class NewsRepository @Inject constructor(
         val cachedNews = newsArticleDao.getAllArticlesForCategory(category)
         emitAll(cachedNews.map { ViewState.success(it) })
 
-    }.flowOn(Dispatchers.IO)
+    }.flowOn(ioDispatcher.get())
 
     override suspend fun getTopHeadLinesForCategory(category: String): Response<NewsResponse> {
         return try {
@@ -46,7 +49,7 @@ class NewsRepository @Inject constructor(
     }
 
     override suspend fun bookMarkArticle(articleModel: NewsArticleModel) {
-        withContext(Dispatchers.IO) {
+        withContext(ioDispatcher.get()) {
             newsArticleDao.updateArticle(articleModel)
         }
     }
